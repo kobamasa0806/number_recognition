@@ -71,11 +71,9 @@ if canvas_result.image_data is not None and len(canvas_result.json_data["objects
     drawn_image = canvas_result.image_data
     drawn_image_gray = np.uint8((drawn_image[:, :, 0:3].sum(axis=2))/3)
     drawn_image_gray = Image.fromarray(drawn_image_gray)
-    #print(drawn_image_gray)
     resized_image = drawn_image_gray.resize((28, 28))
     inverted_image = ImageOps.invert(resized_image)
     image_for_judge = np.array(inverted_image)/255
-    #print(image_for_judge)
     image_for_judge = torch.tensor(image_for_judge, dtype=torch.float32)
     image_for_judge = image_for_judge.view(-1, 28, 28).to(device)
     image_for_judge = normalize_image(image_for_judge)
@@ -85,7 +83,6 @@ if canvas_result.image_data is not None and len(canvas_result.json_data["objects
         prediction_label = np.argmax(probabilities)
         
     st.write(f"## あなたの書いた数字は「*{prediction_label}*」ですか？")
-    #plt.imshow(image_for_judge.detach().to('cpu').numpy().reshape(28, 28), cmap='gray')
     # スコアを棒グラフで表示
     fig, ax = plt.subplots()
     ax.bar(range(10), probabilities, tick_label=range(10))
