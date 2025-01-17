@@ -38,7 +38,7 @@ class MyNet(nn.Module):
 
 device = 'cpu'
 net = MyNet().to(device)
-net.load_state_dict(torch.load('./model/model_cnn_ver02.pt', map_location=torch.device(device), weights_only=True))
+net.load_state_dict(torch.load('model_cnn.pt', map_location=torch.device(device), weights_only=True))
 net.eval()
 def normalize_image(image_tensor):
     mean = 0.1307  # MNISTの平均
